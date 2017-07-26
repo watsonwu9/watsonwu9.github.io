@@ -48,7 +48,7 @@ d3.csv("data.csv",function(data){
       .attr("y", barHeight / 2)
       .attr("dy", ".35em")
       .text(function(d) { return d.value; });
-});
+
 
 function type(d) {
   d.value = +d.value; // coerce to number
