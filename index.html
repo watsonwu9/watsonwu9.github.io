@@ -1,45 +1,25 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Gap Between US States</title>
-<style>
-
-button {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-}
-
-</style>
-<button onclick="transition()">Update</button>
-<svg width="960" height="500"></svg>
+<title>Gap Between States</title>
+<link rel="stylesheet" type="css/main" href="style.css">
 <script src="https://d3js.org/d3.v4.min.js"></script>
+<style> .chart rect {fill:steelblue} </style>
+
+
+<svg width="960" height="500"></svg>
+
+
+<html><body>
 <script>
-var data = [44331, 38435, 15432, 31426, 54323, 45432];
-
-<style>
-.chart div {
-  font: 10px sans-serif;
-  background-color: steelblue;
-  text-align: right;
-  padding: 3px;
-  margin: 1px;
-  color: white;
-}
-</style>
-
-<div class="chart">
-</div>
-
+// var data = [44331, 38435, 15432, 31426, 54323, 45432];
+var data = [4, 5,2, 6, 5, 2];
 d3.select(".chart")
-  .selectAll("div")
-  .data(data)
-  .enter().append("div")
-  .style("width",function(d){return d * 10 +'px';})
-  .text(function(d){return d;});
-
-
-
-   
-  
-
+		.selectAll("rect")
+  		.data(data)
+ 	.enter().append("rect")
+ 	.attr("width",19)
+ 	.attr("height",function(d){return 10 *d;})
+ 	.attr("x",function(d,i){return 20*i;})
+  	.attr("y",function(d){return 420-10*d;})
 </script>
+</body></html>
