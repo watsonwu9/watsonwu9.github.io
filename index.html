@@ -6,19 +6,35 @@
 		<link rel="stylesheet" type="text/css" href="/css/main.css">
 	</head>
 	<body>
-		<nav>
-<!--     		<ul>
+<!-- 		<nav>
+    		<ul>
         		<li><a href="/">Home</a></li>
 	        	<li><a href="/about">About</a></li>
     		</ul>
 		</nav> -->
 		<div class="container">
-    		<div class="blurb">
-        		<h1>Hi there, I'm Yi Wu!</h1>
-			<script type="text/javascript">d3.select('body').append("p").text("Hello Beijing");
+    		
+
+
+        	<h1>Hi there, I'm Yi Wu!</h1>
+			<script type="text/javascript">
+
+			var dataset = [5,10,15,20,25];
+			d3.select("body").selectAll("p")
+				.data(dataset)
+				.enter()
+				.append("p")
+				.text("New Paragraph");
+
 			</script>
-    		</div><!-- /.blurb -->
+
+    	
 		</div><!-- /.container -->
+
+
+
+
+
 		<footer>
     		<ul>
         		<li><a href="mailto:yiw3@illinois.edu">email</a></li>
