@@ -8,7 +8,7 @@
 
 
 	<body>
-   		<p>Hi there, I'm Yi Wu!</p>
+   		<p>Hi there, I'm Yi !</p>
    		<svg class="chart" width="120" height="500">
    		</svg>
 			<script>
@@ -19,6 +19,16 @@
     			.attr("height",function(d){return 10*d;})
     			.attr("x",function(d,i){return 20*i;})
     			.attr("y",function(d){return 420 - 10*d;});
+
+    		d3.select("body").selectAll("div")
+   			 .data(dataset)  // <-- The answer is here!
+  			 .enter()
+    		 .append("div")
+   			 .attr("class", "bar")
+   			 .style("height", function(d) {
+       				 var barHeight = d * 5;
+       				 return barHeight + "px";
+    });
 			</script>
 
     	
