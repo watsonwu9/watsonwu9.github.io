@@ -28,43 +28,53 @@
 <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script>
 
-var data = [14, 18, 15, 26, 23, 20];
-var data2 = [18, 28, 25, 26, 53, 32];
+var data = [24, 18, 15, 26, 23, 20];
+var data2 = [38, 28, 25, 26, 53, 32];
 
-var width = 420,
-    barHeight = 20;
+var width = 200,
+    height = 500;
 
-var x = d3.scale.linear()
+var y = d3.scale.linear()
     .domain([0, d3.max(data)])
-    .range([0, width]);
+    .range([height, 0]);
+
+var y2 = d3.scale.linear()
+    .domain([0, d3.max(data2)])
+    .range([height, 0]);
 
 var chart = d3.select(".chart")
     .attr("width", width)
-    .attr("height", barHeight * data.length);
+    .attr("height", height);
 
-var tooltip = d3.select("#tooltip");
+var barWidth = width / data.length;
 
 var bar = chart.selectAll("g")
     .data(data)
   .enter().append("g")
-    .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+    .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; });
 
 bar.append("rect")
-    .attr("width", x)
-    .attr("height", barHeight - 1);
+    .attr("y", function(d) { return y(d); })
+    .attr("height", function(d) { return height - y(d); })
+    .attr("width", barWidth - 1);
 
 bar.append("text")
-    .attr("x", function(d) { return x(d) - 3; })
-    .attr("y", barHeight / 2)
-    .attr("dy", ".35em")
+    .attr("x", barWidth / 2)
+    .attr("y", function(d) { return y(d) + 3; })
+    .attr("dy", ".75em")
     .text(function(d) { return d; });
+
+
+var tooltip = d3.select("#tooltip");
+
+
 
 bar.on("mouseover",function(d,i){
   tooltip.style("opacity",1)
          .style("left",(d3.event.pageX)+"px")
          .style("top",(d3.event.pageY)+"px")
-         .html("ITEM #" +d3.event.pageX+" is "+d3.event.pageY);
-  
+         .html("ITEM #" +i+" is "+d);
+
 })
    .on("mouseout",function(){
     tooltip.style("opacity",0)
@@ -76,7 +86,8 @@ function transition() {
     .data(data2)
     .transition()
       .duration(2500)
-      .attr("width", x);
+      .attr("y", function(d) { return y2(d); })
+      .attr("height", function(d) { return height - y2(d); })
 
 }
 
