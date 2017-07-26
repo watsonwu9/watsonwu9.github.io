@@ -2,6 +2,14 @@ body {
     margin: 60px auto;
     width: 70%;
 }
+
+div.bar {
+    display: inline-block;
+    width: 20px;
+    height: 75px;  
+    background-color: teal;
+}
+
 nav ul, footer ul {
     font-family:'Helvetica', 'Arial', 'Sans-Serif';
     padding: 0px;
