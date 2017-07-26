@@ -28,9 +28,13 @@ var chart = d3.select(".chart")
 
 // d3.tsv("data.tsv", type, function(error, data) {
 //   x.domain([0, d3.max(data, function(d) { return d.value; })]);
-d3.csv("data.csv",function(data){
-  dataset = data.map(function(d){return [+d['name'],+d['value']];});
-})
+// d3.csv("data.csv",function(data){
+//   dataset = data.map(function(d){return [+d['name'],+d['value']];});
+// })
+d3.csv("data.csv", function(error, data) {
+  if (error) throw error;
+  console.log(data); // [{"Hello": "world"}, …]
+});
 
   chart.attr("height", barHeight * data.length);
 
