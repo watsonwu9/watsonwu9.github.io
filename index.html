@@ -9,13 +9,13 @@
 
 	<body>
    		<p>Hi there, I'm Yi Wu!</p>
-   		<svg>
+   		<svg class="chart" width="120" height="500">
    		</svg>
 			<script>
 			var dataset = [5,10,15,20,250];
 			d3.selectAll("rect")
     			.data(dataset)
-   				.enter()
+   				.enter().append('rect')
     			.attr("height",function(d){return 10*d;})
     			.attr("x",function(d,i){return 20*i;})
     			.attr("y",function(d){return 420 - 10*d;});
