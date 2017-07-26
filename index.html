@@ -2,9 +2,6 @@
 <meta charset="utf-8">
 <style>
 
-.chart rect {
-  fill: steelblue;
-}
 
 .chart text {
   fill: white;
@@ -63,10 +60,8 @@ var y2 = d3.scale.linear()
     .domain([0, d3.max(data2)])
     .range([height, 0]);
 
+var color = d3.scale.category20c();
 
-// var xAxis = d3.svg.axis()
-//     .scale(x)
-//     .orient("bottom");
 
 var yAxis = d3.svg.axis()
     .scale(y)
@@ -80,13 +75,22 @@ var chart = d3.select(".chart")
 var bar = chart.selectAll("g")
     .data(data)
   .enter().append("g")
-    .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; });
+    .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; })
+    .attr("id", function(d, i) {
+            return i;
+        })
+    .attr("fill", function(d, i) {
+            return color(i);
+        });
 
 bar.append("rect")
     .attr("y", function(d) { return y(d); })
     .attr("height", function(d) { return height - y(d); })
     .attr("width", barWidth - 2 )
     // .attr("fill", function(d) {return "rgb(0, 0, " + (y(d) * 10) + ")";});
+    // .attr("fill", function(d, i) {
+    //         return color(i);})
+
 
 bar.append("text")
     .attr("x", barWidth / 2 + 3.5)
@@ -95,9 +99,6 @@ bar.append("text")
     .text(function(d) { return d; });
 
 
-// bar.append("g")
-//     .attr("class","axis")
-//     .attr("transform","translate(" + barWidth + ",0)")
 
 
 var tooltip = d3.select("#tooltip");
@@ -106,7 +107,7 @@ var tooltip = d3.select("#tooltip");
 
 bar.on("mouseover",function(d,i){
   d3.select(this)
-    .attr("fill", "red");
+    .attr("fill","red")
   tooltip.style("opacity",1)
          .style("left",(d3.event.pageX)+"px")
          .style("top",(d3.event.pageY)+"px")
@@ -115,8 +116,9 @@ bar.on("mouseover",function(d,i){
 
 })
    .on("mouseout",function(){
-    d3.select(this)
-      .attr("fill", "blue");
+    d3.select(this).attr("fill", function() {
+                return "" + color(this.id) + "";
+            });
     tooltip.style("opacity",0)
            
 })
