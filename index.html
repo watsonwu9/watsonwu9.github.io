@@ -36,6 +36,14 @@ d3.csv("data.csv", function(error, data) {
   console.log(data); // [{"Hello": "world"}, …]
 });
 
+d3.csv("data.csv", function(data) {
+  data.forEach(function(d) {
+    d.name = +d.name;
+    d["value"] = +d["value"];
+  });
+  console.log(data[0]);
+});
+
   chart.attr("height", barHeight * data.length);
 
   var bar = chart.selectAll("g")
