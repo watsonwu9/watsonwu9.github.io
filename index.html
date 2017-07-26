@@ -31,10 +31,7 @@ var chart = d3.select(".chart")
 // d3.csv("data.csv",function(data){
 //   dataset = data.map(function(d){return [+d['name'],+d['value']];});
 // })
-d3.csv("data.csv", function(error, data) {
-  if (error) throw error;
-  console.log(data); // [{"Hello": "world"}, …]
-});
+
 
 d3.csv("data.csv", function(data) {
   data.forEach(function(d) {
