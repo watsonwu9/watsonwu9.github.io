@@ -74,9 +74,6 @@ d3.csv('data.csv', function(data) {
         .data(dataset)
         .enter().append('g')
         .attr('class', 'bar')
-        // .attr("transform", function(d, i) { 
-        //     var x_tran = 17 + i * (x.rangeBand() + 2)
-        //     return "translate(" + x_tran + ",0)"; })
         .attr("id", function(d, i) {
             return i;
         })
@@ -85,13 +82,15 @@ d3.csv('data.csv', function(data) {
         });
 
     bar.append("rect")
+        .attr('class','rect')
         .attr("y", function(d) { return y(d.wage); })
-        .attr('x', function(d) {return  x(d.state)})
+        .attr('x', function(d) {return  x(d.state);})
         .attr("height", function(d) { return height - y(d.wage); })
         .attr("width", x.rangeBand()-2 )
         // .style("fill", function(d,i) {return "" + color(i) + "";});
 
     bar.append("text")
+        .attr('class','text')
         .attr("y", function(d) { return y(d.wage); })
         .attr('x', function(d) {return  x(d.state)})
         .attr('width',x.rangeBand())
@@ -99,12 +98,14 @@ d3.csv('data.csv', function(data) {
         .attr('fill','white')
         .text(function(d) { return d.wage; });
 
+
  
 
 
 
     //mouseover activities
     bar.on("mouseover",function(d,i){
+        console.log("haha" + d.state)
         d3.select(this)
             .attr("fill","red");
         })
@@ -124,11 +125,19 @@ d3.csv('data.csv', function(data) {
 
         var transition = chart.transition().duration(750)
 
-        bar.transition
-            .attr('x', function(d) {return x0(d.state)})
+        transition.selectAll('.text')
+            .attr('x', function(d) {
+                return x0(d.state);})
 
+        transition.selectAll('.rect')
+            .attr('x', function(d) {
+            return x0(d.state);})
 
         transition.select('.x.axis')
             .call(xAxis)
+    }
+
+    function dataChange(){
+        
     }
 })
