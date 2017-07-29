@@ -2,6 +2,10 @@
 <html>
 <head>
   <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <link rel="stylesheet" type="text/css" href="d3.slider.css" media="screen" />
+  <script src="d3.slider.js"></script>
+  <script src="https://d3js.org/d3-time.v1.min.js"></script>
+  <script src="https://d3js.org/d3-time-format.v2.min.js"></script>
   <style>
         .axis path, 
         .axis line {
@@ -43,7 +47,7 @@
           left: 970px;
           position: absolute;
         }
-        
+
 
 
   </style>
@@ -53,6 +57,7 @@
   <label for="sort" class="label">Sort</label>
   <input type="checkbox" id="sort"/>
   <svg id="chart"/>
+  <div id="slider"></div>
   <script src="chart.js" type="text/javascript"></script>
 </body>
 </html>
