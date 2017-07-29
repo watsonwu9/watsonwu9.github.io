@@ -121,7 +121,7 @@ d3.csv('data.csv', function(data) {
     bar.on("mouseover",function(d,i){
         console.log("haha" + d.state)
         d3.select(this)
-            .attr("fill","red");
+            .attr("fill","green");
         })
 
        .on("mouseout",function(){
