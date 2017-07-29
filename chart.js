@@ -1,5 +1,3 @@
-//My Thanks go to the creator of http://sujeetsr.github.io/d3.slider/ 
-
 var dataset = []
     
 var margin = {top: 20, right: 30, bottom: 30, left: 50},
@@ -100,20 +98,8 @@ d3.csv('data.csv', function(data) {
         .attr('fill','white')
         .text(function(d) { return d.wage; });
 
-    //tick formatter 
-    var tickFormatter = function(d) {
-        return d.slice(0,1)+d.slice(2);
-        }
 
-
-    var slider = d3.slider()
-                .min(1985)
-                .max(2015)
-                .ticks(10)
-                .stepValues(['1985','1990','1995','2000','2005','2010','2015']);
-                //.tickFormat(tickFormatter);
-// Render the slider in the div
-    d3.select('#slider').call(slider);
+ 
 
 
 
@@ -152,6 +138,6 @@ d3.csv('data.csv', function(data) {
     }
 
     function dataChange(){
-        console.log("you pressed slider")
+        
     }
 })
