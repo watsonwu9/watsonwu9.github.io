@@ -105,13 +105,13 @@ d3.csv('data.csv', function(data) {
         return d.slice(0,1)+d.slice(2);
         }
 
-2 , 0 1 5 
+
     var slider = d3.slider()
                 .min(1985)
                 .max(2015)
                 .ticks(10)
-                .stepValues(['1985','1990','1995','2000','2005','2010','2015'])
-                .tickFormat(tickFormatter);
+                .stepValues(['1985','1990','1995','2000','2005','2010','2015']);
+                //.tickFormat(tickFormatter);
 // Render the slider in the div
     d3.select('#slider').call(slider);
 
