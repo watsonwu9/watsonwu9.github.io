@@ -89,7 +89,7 @@ d3.csv('data.csv', function(data) {
         .attr('x', function(d) {return  x(d.state);})
         .attr("height", function(d) { return height - y(d.wage); })
         .attr("width", x.rangeBand()-2 )
-        // .style("fill", function(d,i) {return "" + color(i) + "";});
+        
 
     bar.append("text")
         .attr('class','text')
@@ -101,27 +101,42 @@ d3.csv('data.csv', function(data) {
         .text(function(d) { return d.wage; });
 
     //tick formatter 
+    var formatter = d3.format(".4r");
     var tickFormatter = function(d) {
-        return d.slice(0,1)+d.slice(2);
-        }
-
+    return formatter(d);
+    }
 
     var slider = d3.slider()
                 .min(1985)
                 .max(2015)
                 .ticks(10)
-                .stepValues(['1985','1990','1995','2000','2005','2010','2015']);
-                //.tickFormat(tickFormatter);
+                .stepValues(['1985','1990','1995','2000','2005','2010','2015'])
+                .tickFormat(tickFormatter);
+          
+
+
 // Render the slider in the div
-    d3.select('#slider').call(slider);
+    d3.select('#slider')
+        .call(slider);
+
+    // eventone = function(){
+    //     alert("clik you");
+    // }
+    // eventtwo = function(){
+    //     alert("drag you");
+    // }
+    // window.onload = function(){
+    //     d3.select('#slider').addEventListener("click",eventone);
+    //     d3.select('#slider').addEventListener("drag",eventtwo);
+    // }
 
 
 
     //mouseover activities
     bar.on("mouseover",function(d,i){
-        console.log("haha" + d.state)
+        console.log("haha " + slider.value())
         d3.select(this)
-            .attr("fill","green");
+            .attr("fill","blue");
         })
 
        .on("mouseout",function(){

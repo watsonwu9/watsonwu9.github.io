@@ -129,11 +129,13 @@ d3.slider = function module() {
   slider.click = function() {
     var pos = d3.event.offsetX || d3.event.layerX;
     slider.move(pos);
+    console.log("you clicked!");
   }
 
   slider.drag = function() {
     var pos = d3.event.x;
     slider.move(pos+margin.left);
+    console.log("you dragged!");
   }
 
   slider.move = function(pos) {
