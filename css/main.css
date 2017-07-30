@@ -1,4 +1,4 @@
-.axis path, 
+/*.axis path, 
 .axis line {
     fill: none;
     stroke: black;
@@ -37,6 +37,7 @@
 input {
   top: 30px;
   left: 1000px;
+  width: 300px;
   position: absolute;
 }
 label {
@@ -44,6 +45,8 @@ label {
   left: 970px;
   position: absolute;
 }
+
+
 #chart {
   margin-right: 50px;
   padding-left: 50px;
@@ -52,3 +55,4 @@ label {
   margin-right: 50px;
   padding-left: 50px;
 }
+*/
