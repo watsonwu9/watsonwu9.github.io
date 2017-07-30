@@ -49,7 +49,7 @@ d3.csv('income.csv', function(data) {
     
     // Scale the domain of the data
     x.domain(dataset.map(function(d){ return d.state }))
-    y.domain([4, d3.max(dataset, function(d){return d.wage})])
+    y.domain([4, d3.max(dataf, function(d){return d.wage})])
     c.domain([4, d3.max(dataset, function(d){return d.wage})])
 
     // Create axes
