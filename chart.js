@@ -34,14 +34,18 @@ var chart= d3.select('#chart')
     .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
-d3.csv('data.csv', function(data) {
-    var dataf = data.filter(function(el){return !isNaN(parseFloat(el.wage))});
-    dataset = dataf.map(function(d){
+d3.csv('income.csv', function(data) {
+
+    dataf = data.map(function(d){
         return {
             'state': d.state, 
-            'wage': parseFloat(d.wage)
+            'wage': parseFloat(d.income),
+            'year': parseFloat(d.year)
             }
     });
+
+    //filter dataf to a specific year 
+    var dataset = dataf.filter(function(el) {return parseFloat(el.year)==1985});
     
     // Scale the domain of the data
     x.domain(dataset.map(function(d){ return d.state }))
@@ -108,7 +112,8 @@ d3.csv('data.csv', function(data) {
     var tickFormatter = function(d) {
     return formatter(d);
     }
-    var dispatch = d3.dispatch("slidermove");
+    
+    var dispatch2 = d3.dispatch('changedata');
 
     var slider = d3.slider()
                 .min(1985)
@@ -119,15 +124,13 @@ d3.csv('data.csv', function(data) {
 
                 .on("slidermove.three",function(value){
         console.log("Mr. Wu, now you are at " + value)
+        dispatch2.changedata(value);
         });       
           
-
 
     d3.select('#slider')
         .call(slider);
            
-        
-
 
     //mouseover activities
     bar.on("mouseover",function(d,i){
@@ -139,6 +142,37 @@ d3.csv('data.csv', function(data) {
        .on("mouseout",function(){
          d3.select(this).attr("fill", function() {return "" + color(this.id) + "";});   
         })
+
+    // dispatch 2
+    dispatch2.on('changedata',function(currentyear){
+        console.log("now you are changing to year "+ currentyear)
+        var dataset2 = dataf.filter(function(el) {return parseFloat(el.year)==currentyear});
+                
+        console.log(dataset2);
+        chart.selectAll('.rect')
+                 .data(dataset2)
+                 .transition().duration(1000)
+                 .attr('height', function(d) {
+                  return height - y(d.wage);})
+                 .attr('y', function(d) {
+                return y(d.wage);});
+           
+
+        // transition2.selectAll('.rect')
+        //     .attr('height', function(d) {
+        //     return height - y(d.wage);})
+            // .attr('y', function(d) {
+            //     return y(d.wage);});
+
+        chart.selectAll('.text')
+            .data(dataset2)
+            .transition().duration(1000).delay(750)
+            .attr('y', function(d) {
+                return y(d.wage);})
+            .text(function(d) { return d.wage; });
+
+    })   
+
     //sort activities
     d3.select('input').on('change', change)
 
