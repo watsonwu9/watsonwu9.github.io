@@ -100,6 +100,9 @@ d3.csv('data.csv', function(data) {
         .attr('fill','white')
         .text(function(d) { return d.wage; });
 
+
+
+
     //tick formatter 
     var formatter = d3.format(".4r");
     var tickFormatter = function(d) {
@@ -109,27 +112,22 @@ d3.csv('data.csv', function(data) {
     var slider = d3.slider()
                 .min(1985)
                 .max(2015)
-                .ticks(10)
+                .ticks(5)
                 .stepValues(['1985','1990','1995','2000','2005','2010','2015'])
                 .tickFormat(tickFormatter);
-          
 
+                
+          
 
 // Render the slider in the div
     d3.select('#slider')
-        .call(slider);
-
-    // eventone = function(){
-    //     alert("clik you");
-    // }
-    // eventtwo = function(){
-    //     alert("drag you");
-    // }
-    // window.onload = function(){
-    //     d3.select('#slider').addEventListener("click",eventone);
-    //     d3.select('#slider').addEventListener("drag",eventtwo);
-    // }
-
+        .call(slider
+             // .on("slidermove.three",function(text){
+             //    return "at chart,js, you got it "+text;
+             //    })
+            );
+           
+        
 
 
     //mouseover activities
@@ -165,8 +163,6 @@ d3.csv('data.csv', function(data) {
         transition.select('.x.axis')
             .call(xAxis)
     }
-
-    function dataChange(){
-        console.log("you pressed slider")
-    }
 })
+
+    

@@ -1,5 +1,5 @@
 d3.slider = function module() {
-  "use strict";
+  //"use strict";
 
   var div, min = 0, max = 100, svg, svgGroup, value, classPrefix, axis, 
   height=40, rect,
@@ -9,6 +9,8 @@ d3.slider = function module() {
   ticks = 0, tickValues, scale, tickFormat, dragger, width, 
   range = false,
   callbackFn, stepValues, focus;
+
+ 
 
   function slider(selection) {
     selection.each(function() {
@@ -65,10 +67,7 @@ d3.slider = function module() {
       svg.append("g")
       .attr("transform", "translate(0," + rectHeight + ")")
       .call(axis)
-      //.selectAll(".tick")
-      //.data(tickValues, function(d) { return d; })
-      //.exit()
-      //.classed("minor", true);
+
    
       var values = [value];
       dragger = svg.selectAll(".dragger")
@@ -129,16 +128,21 @@ d3.slider = function module() {
   slider.click = function() {
     var pos = d3.event.offsetX || d3.event.layerX;
     slider.move(pos);
-    console.log("you clicked!");
   }
 
   slider.drag = function() {
     var pos = d3.event.x;
     slider.move(pos+margin.left);
-    console.log("you dragged!");
   }
 
+  var dispatch = d3.dispatch("slidermove");
+
   slider.move = function(pos) {
+
+    // trigger event 
+    console.log("you moved")
+    dispatch.slidermove("wu yi");
+    //dispatch.call('sliderMove',this,"hallo");
     var l,u;
     var newValue = scale.invert(pos - margin.left);
     // find tick values that are closest to newValue
@@ -282,7 +286,19 @@ d3.slider = function module() {
     div.selectAll('svg').remove();
     return slider;
   }
+  //var bound = d3.rebind(slider, dispatch, "on");
+  // dispatch.on("slidermove",function(text){
+  //   console.log("this is in the slider js " + text)
+  // });
 
+  dispatch.on("slidermove.one",function(text){
+    console.log("see me again  " + text)
+  });
+  dispatch.on("slidermove.two",function(text){
+    console.log("see me   " + text)
+  });
+
+  // slider = d3.rebind(slider, dispatch, "on");
   return slider;
 
 };
