@@ -151,7 +151,6 @@ d3.csv('income.csv', function(data) {
 
     // dispatch 2
 
-    var sorted = false
     dispatch2.on('updatedata',function(toYear){
         update(toYear)
     })
@@ -174,16 +173,18 @@ d3.csv('income.csv', function(data) {
                 return y(d.income);})
             .text(function(d) { return d.income; });
 
+        
+
     }
 
 
 
     //sort activities
-    d3.select('input').on('click', changeBar)
+    d3.select('input').on('change', change)
 
 
 
-    function changeBar() {
+    function change() {
 
         var x0 = x.domain(dataset.sort(this.checked
             ? function(a,b){return b.income - a.income}
