@@ -286,10 +286,7 @@ d3.slider = function module() {
     div.selectAll('svg').remove();
     return slider;
   }
-  //var bound = d3.rebind(slider, dispatch, "on");
-  // dispatch.on("slidermove",function(text){
-  //   console.log("this is in the slider js " + text)
-  // });
+
 
   dispatch.on("slidermove.one",function(text){
     console.log("see me again  " + text)
@@ -298,7 +295,7 @@ d3.slider = function module() {
     console.log("see me   " + text)
   });
 
-  // slider = d3.rebind(slider, dispatch, "on");
+  slider = d3.rebind(slider, dispatch, "on");
   return slider;
 
 };

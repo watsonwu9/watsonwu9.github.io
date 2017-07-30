@@ -108,24 +108,23 @@ d3.csv('data.csv', function(data) {
     var tickFormatter = function(d) {
     return formatter(d);
     }
+    var dispatch = d3.dispatch("slidermove");
 
     var slider = d3.slider()
                 .min(1985)
                 .max(2015)
                 .ticks(5)
                 .stepValues(['1985','1990','1995','2000','2005','2010','2015'])
-                .tickFormat(tickFormatter);
+                .tickFormat(tickFormatter)
 
-                
+                .on("slidermove.three",function(text){
+        console.log("see me at are you kidding " + text)
+        });       
           
 
-// Render the slider in the div
+
     d3.select('#slider')
-        .call(slider
-             // .on("slidermove.three",function(text){
-             //    return "at chart,js, you got it "+text;
-             //    })
-            );
+        .call(slider);
            
         
 
@@ -164,5 +163,13 @@ d3.csv('data.csv', function(data) {
             .call(xAxis)
     }
 })
+
+
+
+
+
+
+
+
 
     
