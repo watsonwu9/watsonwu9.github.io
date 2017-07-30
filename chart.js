@@ -3,8 +3,8 @@
 var dataset = []
     
 var margin = {top: 20, right: 30, bottom: 30, left: 60},
-    width = 1260 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 1160 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
 
 var x = d3.scale.ordinal()
     .rangeRoundBands([0, width], .1)
@@ -97,14 +97,20 @@ d3.csv('income.csv', function(data) {
         .attr("width", x.rangeBand()-2 )
         
 
+    // var formatter_thousand = d3.format(".4r");
+    // var tickFormatter = function(d) {
+    // return formatter_thousand(d);
+    // }
+
     bar.append("text")
         .attr('class','text')
+        //.attr('transform', 'rotate(30)')
         .attr("y", function(d) { return y(d.income); })
         .attr('x', function(d) {return  x(d.state)})
         .attr('width',x.rangeBand())
         .attr("dy", "1em")
         .attr('fill','white')
-        .text(function(d) { return d.income; });
+        .text(function(d) { return d.income/1000+'k'; });
 
 
 
@@ -123,7 +129,6 @@ d3.csv('income.csv', function(data) {
                 .ticks(5)
                 .stepValues(['1985','1990','1995','2000','2005','2010','2015'])
                 .tickFormat(tickFormatter)
-
                 .on("slidermove.one",function(value){
         dispatch2.updatedata(value);
         });       
@@ -169,9 +174,6 @@ d3.csv('income.csv', function(data) {
                 return y(d.income);})
             .text(function(d) { return d.income; });
 
-        // if (sorted) {
-        //     changeBar()
-        // };
     }
 
 
@@ -180,19 +182,6 @@ d3.csv('income.csv', function(data) {
     d3.select('input').on('click', changeBar)
 
 
-    // function change(){
-    //     changeSort()
-    //     changeBar()
-    // }
-
-    // function changeSort(){
-    //     if (sorted) {
-    //         sorted = false;
-    //     };
-    //     if (sorted == false) {
-    //         sorted = true;
-    //     };
-    // }
 
     function changeBar() {
 
