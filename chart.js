@@ -34,6 +34,8 @@ var chart= d3.select('#chart')
     .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
+
+
 d3.csv('income.csv', function(data) {
 
     dataf = data.map(function(d){
@@ -45,7 +47,7 @@ d3.csv('income.csv', function(data) {
     });
 
     //filter dataf to a specific year 
-    var dataset = dataf.filter(function(el) {return parseFloat(el.year)==1985});
+    dataset = dataf.filter(function(el) {return parseFloat(el.year)==1985});
     
     // Scale the domain of the data
     x.domain(dataset.map(function(d){ return d.state }))
@@ -113,7 +115,7 @@ d3.csv('income.csv', function(data) {
     return formatter(d);
     }
     
-    var dispatch2 = d3.dispatch('changedata');
+    var dispatch2 = d3.dispatch('updatedata');
 
     var slider = d3.slider()
                 .min(1985)
@@ -122,9 +124,8 @@ d3.csv('income.csv', function(data) {
                 .stepValues(['1985','1990','1995','2000','2005','2010','2015'])
                 .tickFormat(tickFormatter)
 
-                .on("slidermove.three",function(value){
-        console.log("Mr. Wu, now you are at " + value)
-        dispatch2.changedata(value);
+                .on("slidermove.one",function(value){
+        dispatch2.updatedata(value);
         });       
           
 
@@ -144,39 +145,37 @@ d3.csv('income.csv', function(data) {
         })
 
     // dispatch 2
-    dispatch2.on('changedata',function(currentyear){
-        console.log("now you are changing to year "+ currentyear)
-        var dataset2 = dataf.filter(function(el) {return parseFloat(el.year)==currentyear});
-                
-        console.log(dataset2);
+    dispatch2.on('updatedata',function(toYear){
+        update(toYear)
+    })
+
+    function update(toYear){
+        dataset = dataf.filter(function(el) {return parseFloat(el.year)==toYear});
+ 
         chart.selectAll('.rect')
-                 .data(dataset2)
-                 .transition().duration(1000)
-                 .attr('height', function(d) {
-                  return height - y(d.wage);})
-                 .attr('y', function(d) {
-                return y(d.wage);});
+         .data(dataset)
+         .transition().duration(1000)
+         .attr('height', function(d) {
+          return height - y(d.wage);})
+         .attr('y', function(d) {
+        return y(d.wage);});
            
-
-        // transition2.selectAll('.rect')
-        //     .attr('height', function(d) {
-        //     return height - y(d.wage);})
-            // .attr('y', function(d) {
-            //     return y(d.wage);});
-
         chart.selectAll('.text')
-            .data(dataset2)
+            .data(dataset)
             .transition().duration(1000).delay(750)
             .attr('y', function(d) {
                 return y(d.wage);})
             .text(function(d) { return d.wage; });
-
-    })   
-
+    }
     //sort activities
     d3.select('input').on('change', change)
 
     function change() {
+
+        dispatch2.on('updatedata',function(currentyear){
+        dataset = dataf.filter(function(el) {return parseFloat(el.year)==currentyear});
+        })
+
         var x0 = x.domain(dataset.sort(this.checked
             ? function(a,b){return b.wage - a.wage}
             : function(a,b){return d3.ascending(a.state, b.state)})
@@ -193,8 +192,6 @@ d3.csv('income.csv', function(data) {
             .attr('x', function(d) {
             return x0(d.state);})
 
-        transition.select('.x.axis')
-            .call(xAxis)
     }
 })
 

@@ -290,10 +290,6 @@ d3.slider = function module() {
   }
 
 
-  dispatch.on("slidermove.one",function(text){
-    console.log("see you again  " + text)
-  });
-
 
   slider = d3.rebind(slider, dispatch, "on");
   return slider;
