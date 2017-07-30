@@ -117,8 +117,8 @@ d3.csv('data.csv', function(data) {
                 .stepValues(['1985','1990','1995','2000','2005','2010','2015'])
                 .tickFormat(tickFormatter)
 
-                .on("slidermove.three",function(text){
-        console.log("see me at are you kidding " + text)
+                .on("slidermove.three",function(value){
+        console.log("Mr. Wu, now you are at " + value)
         });       
           
 

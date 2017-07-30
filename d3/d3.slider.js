@@ -141,7 +141,7 @@ d3.slider = function module() {
 
     // trigger event 
     console.log("you moved")
-    dispatch.slidermove("wu yi");
+    
     //dispatch.call('sliderMove',this,"hallo");
     var l,u;
     var newValue = scale.invert(pos - margin.left);
@@ -185,6 +185,8 @@ d3.slider = function module() {
     }
     svg.selectAll(".dragger").select("text")
     .text(displayValue);
+    //tell the listener that you moved!
+    dispatch.slidermove(displayValue);
    
     if (range) { 
       svg.selectAll(".d3slider-rect-value")
@@ -289,11 +291,9 @@ d3.slider = function module() {
 
 
   dispatch.on("slidermove.one",function(text){
-    console.log("see me again  " + text)
+    console.log("see you again  " + text)
   });
-  dispatch.on("slidermove.two",function(text){
-    console.log("see me   " + text)
-  });
+
 
   slider = d3.rebind(slider, dispatch, "on");
   return slider;
