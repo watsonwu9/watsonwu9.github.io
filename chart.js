@@ -173,24 +173,32 @@ d3.csv('income.csv', function(data) {
                 return y(d.income);})
             .text(function(d) { return d.income; });
 
-        
+
 
     }
 
 
 
     //sort activities
-    d3.select('input').on('change', change)
+    d3.select('input').on('click', change)
 
-
+    var sorted = false;
 
     function change() {
 
-        var x0 = x.domain(dataset.sort(this.checked
+        sorted = sorted ? false:true 
+        console.log("now it is "+sorted)
+        
+         var x0 = x.domain(dataset.sort(sorted
             ? function(a,b){return b.income - a.income}
             : function(a,b){return d3.ascending(a.state, b.state)})
             .map(function(d) {return d.state}))
             .copy();
+        // var x0 = x.domain(dataset.sort(this.checked
+        //     ? function(a,b){return b.income - a.income}
+        //     : function(a,b){return d3.ascending(a.state, b.state)})
+        //     .map(function(d) {return d.state}))
+        //     .copy();
 
         var transition = chart.transition().duration(750)
 
