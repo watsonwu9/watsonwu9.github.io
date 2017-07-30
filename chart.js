@@ -2,9 +2,9 @@
 
 var dataset = []
     
-var margin = {top: 20, right: 30, bottom: 30, left: 50},
-    width = 1120 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+var margin = {top: 20, right: 30, bottom: 30, left: 60},
+    width = 1260 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
 var x = d3.scale.ordinal()
     .rangeRoundBands([0, width], .1)
@@ -41,7 +41,7 @@ d3.csv('income.csv', function(data) {
     dataf = data.map(function(d){
         return {
             'state': d.state, 
-            'wage': parseFloat(d.income),
+            'income': parseFloat(d.income),
             'year': parseFloat(d.year)
             }
     });
@@ -51,8 +51,8 @@ d3.csv('income.csv', function(data) {
     
     // Scale the domain of the data
     x.domain(dataset.map(function(d){ return d.state }))
-    y.domain([4, d3.max(dataf, function(d){return d.wage})])
-    c.domain([4, d3.max(dataset, function(d){return d.wage})])
+    y.domain([4, d3.max(dataf, function(d){return d.income})])
+    c.domain([4, d3.max(dataset, function(d){return d.income})])
 
     // Create axes
     chart.append('g')
@@ -72,9 +72,9 @@ d3.csv('income.csv', function(data) {
       .append('text')
         .attr('class', 'label')
         .attr('transform', 'rotate(-90)')
-        .attr('y', -35)
+        .attr('y', -50)
         .style('text-anchor', 'end')
-        .text('Minimum wage (USD)')
+        .text('Median Household Annual Income (USD)')
     
     // Create bars
         // Create bars
@@ -91,20 +91,20 @@ d3.csv('income.csv', function(data) {
 
     bar.append("rect")
         .attr('class','rect')
-        .attr("y", function(d) { return y(d.wage); })
+        .attr("y", function(d) { return y(d.income); })
         .attr('x', function(d) {return  x(d.state);})
-        .attr("height", function(d) { return height - y(d.wage); })
+        .attr("height", function(d) { return height - y(d.income); })
         .attr("width", x.rangeBand()-2 )
         
 
     bar.append("text")
         .attr('class','text')
-        .attr("y", function(d) { return y(d.wage); })
+        .attr("y", function(d) { return y(d.income); })
         .attr('x', function(d) {return  x(d.state)})
         .attr('width',x.rangeBand())
         .attr("dy", "1em")
         .attr('fill','white')
-        .text(function(d) { return d.wage; });
+        .text(function(d) { return d.income; });
 
 
 
@@ -137,7 +137,7 @@ d3.csv('income.csv', function(data) {
     bar.on("mouseover",function(d,i){
         console.log("haha " + slider.value())
         d3.select(this)
-            .attr("fill","blue");
+            .attr("fill","red");
         })
 
        .on("mouseout",function(){
@@ -145,39 +145,59 @@ d3.csv('income.csv', function(data) {
         })
 
     // dispatch 2
+
+    var sorted = false
     dispatch2.on('updatedata',function(toYear){
         update(toYear)
     })
 
     function update(toYear){
         dataset = dataf.filter(function(el) {return parseFloat(el.year)==toYear});
- 
+
         chart.selectAll('.rect')
          .data(dataset)
          .transition().duration(1000)
          .attr('height', function(d) {
-          return height - y(d.wage);})
+          return height - y(d.income);})
          .attr('y', function(d) {
-        return y(d.wage);});
+        return y(d.income);});
            
         chart.selectAll('.text')
             .data(dataset)
             .transition().duration(1000).delay(750)
             .attr('y', function(d) {
-                return y(d.wage);})
-            .text(function(d) { return d.wage; });
+                return y(d.income);})
+            .text(function(d) { return d.income; });
+
+        // if (sorted) {
+        //     changeBar()
+        // };
     }
+
+
+
     //sort activities
-    d3.select('input').on('change', change)
+    d3.select('input').on('click', changeBar)
 
-    function change() {
 
-        dispatch2.on('updatedata',function(currentyear){
-        dataset = dataf.filter(function(el) {return parseFloat(el.year)==currentyear});
-        })
+    // function change(){
+    //     changeSort()
+    //     changeBar()
+    // }
+
+    // function changeSort(){
+    //     if (sorted) {
+    //         sorted = false;
+    //     };
+    //     if (sorted == false) {
+    //         sorted = true;
+    //     };
+    // }
+
+    function changeBar() {
 
         var x0 = x.domain(dataset.sort(this.checked
-            ? function(a,b){return b.wage - a.wage}
+            ? function(a,b){return b.income - a.income}
             : function(a,b){return d3.ascending(a.state, b.state)})
             .map(function(d) {return d.state}))
             .copy();
@@ -186,11 +206,14 @@ d3.csv('income.csv', function(data) {
 
         transition.selectAll('.text')
             .attr('x', function(d) {
-                return x0(d.state);})
+                return x0(d.state);});
 
         transition.selectAll('.rect')
             .attr('x', function(d) {
-            return x0(d.state);})
+            return x0(d.state);});
+
+        transition.select('.x.axis')
+           .call(xAxis)
 
     }
 })
