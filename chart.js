@@ -97,11 +97,11 @@ d3.csv('income.csv', function(data) {
         .attr("width", x.rangeBand()-2 )
         
 
-    // var formatter_thousand = d3.format(".4r");
-    // var tickFormatter = function(d) {
-    // return formatter_thousand(d);
-    // }
 
+
+    var income_usa = [23618,29943,34076,41990,46326,49276,56516];
+
+    
     bar.append("text")
         .attr('class','text')
         //.attr('transform', 'rotate(30)')
@@ -110,7 +110,9 @@ d3.csv('income.csv', function(data) {
         .attr('width',x.rangeBand())
         .attr("dy", "1em")
         .attr('fill','white')
-        .text(function(d) { return d.income/1000+'k'; });
+        .text(function(d) { 
+           var textFormatter =  d3.format("2.0f");
+            return textFormatter(d.income/income_usa[0]*100); });
 
 
 
@@ -171,7 +173,12 @@ d3.csv('income.csv', function(data) {
             .transition().duration(1000).delay(750)
             .attr('y', function(d) {
                 return y(d.income);})
-            .text(function(d) { return d.income; });
+            //.text(function(d) { return d.income; });
+            .text(function(d) { 
+           var textFormatter =  d3.format("2.0f");
+           var i = (toYear - 1985)/5
+            return textFormatter(d.income/income_usa[i]*100); 
+            });
 
 
 
@@ -188,7 +195,7 @@ d3.csv('income.csv', function(data) {
 
         sorted = sorted ? false:true 
         console.log("now it is "+sorted)
-        
+
          var x0 = x.domain(dataset.sort(sorted
             ? function(a,b){return b.income - a.income}
             : function(a,b){return d3.ascending(a.state, b.state)})
