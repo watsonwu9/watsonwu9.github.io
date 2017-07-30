@@ -27,6 +27,15 @@
         .title {
             font-family: sans-serif;
             font-size: 30px;
+            text-align: center;
+        }
+
+        .intro {
+            font-family: sans-serif;
+            font-size: 15px;
+            margin-left: 50px;
+            margin-right: 50px;
+
         }
         .bar text {
           top: 5px;
@@ -36,9 +45,6 @@
           text-align: center;
           font-family: sans-serif;
           font-size: 10px;
-
-
-
         }
         input {
           top: 30px;
@@ -50,15 +56,34 @@
           left: 970px;
           position: absolute;
         }
-
-
+        #chart {
+          margin-right: 50px;
+          padding-left: 50px;
+        }
+        #slider {
+          margin-right: 50px;
+          padding-left: 50px;
+        }
 
   </style>
 </head>
 <body>
-  <h1 class="title">Income Median By States</h1>
+  <h1 class="title">Income Median Gap Between States</h1>
   <label for="sort" class="label">Sort</label>
   <input type="checkbox" id="sort"/>
+  <p class = 'intro'>How Does Family Income in Different States Change in the Past 30 Years?</p>
+  <p class = 'intro'>Each year, millions of immigrants from the world settle in the USA and start to pursue their American dream. America is a vast country and those skillful immigrants perhap will make one of the most important choices in their life: pick up their new home state.To some extent, choosing which state to live in is like buy a big share of stock of that state. One who lives in that state live with the state. 
+  </p>
+
+  <p class = 'intro'>In order to compare the average life standard of  household between states, the median household annual income from 1985 to 2015 were retrieved from the US National Bureau of Cencus. 
+  The national median household income is also presented, to control for the inlfation and the nationally natural growth.  
+  </p>
+
+  <p class = 'intro'>
+  Interestingly,I found that the income of the residents in DC(sorry, this is not a state,literally) improves very fast. In 1985, family from the DC only earn 21,076 US dollar, or 89% of the national household income. However, in 2015, that number has arisen to 70071 US dollars, or 124% of the national household income. This means that 
+  the family in DC has beaten the average!
+  </p>
+
 <!--   <button type="button" id="sort"/> -->
   <svg id="chart"/>
   <div id="slider"></div>
