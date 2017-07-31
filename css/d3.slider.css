@@ -2,11 +2,14 @@
   z-index: 2;
   height: 100%;
   background: none;
+  width:60%;
+  margin-left: 20%;
+  margin-right: 20%;
   
 }
 
 .d3slider-rect-range {
-  fill: #777;
+  fill: #000000;
   stroke: none;
  
 }

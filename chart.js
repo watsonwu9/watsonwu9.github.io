@@ -17,6 +17,7 @@ var c = d3.scale.linear()
 
 var color = d3.scale.category20c();
 
+//var color = d3.scale.linear().range(['beige', 'red']);
 var xAxis = d3.svg.axis()
     .scale(x)
     .orient('bottom')
@@ -52,7 +53,7 @@ d3.csv('income.csv', function(data) {
     // Scale the domain of the data
     x.domain(dataset.map(function(d){ return d.state }))
     y.domain([4, d3.max(dataf, function(d){return d.income})])
-    c.domain([4, d3.max(dataset, function(d){return d.income})])
+    //c.domain([4, d3.max(dataset, function(d){return d.income})])
 
     // Create axes
     chart.append('g')
