@@ -105,7 +105,6 @@ d3.csv('income.csv', function(data) {
     
     bar.append("text")
         .attr('class','text')
-        //.attr('transform', 'rotate(30)')
         .attr("y", function(d) { return y(d.income); })
         .attr('x', function(d) {return  x(d.state)})
         .attr('width',x.rangeBand())
@@ -139,18 +138,28 @@ d3.csv('income.csv', function(data) {
 
     d3.select('#slider')
         .call(slider);
-           
 
+
+  
+    var tooltip = d3.select('#tooltip')  
+ 
     //mouseover activities
     bar.on("mouseover",function(d,i){
         console.log("haha " + slider.value())
         d3.select(this)
             .attr("fill","red");
+
+        tooltip.style('opacity',1)
+                .style('left',(d3.event.pageX)+"px")
+                .style('top',(d3.event.pageY)+"px")
+                .html('item #'+i+' is +d');
+
         })
 
        .on("mouseout",function(){
-         d3.select(this).attr("fill", function() {return "" + color(this.id) + "";});   
-        })
+         d3.select(this).attr("fill", function() {return "" + color(this.id) + "";})   
+         tooltip.style('opacity',0);
+      })
 
     // dispatch 2
 
