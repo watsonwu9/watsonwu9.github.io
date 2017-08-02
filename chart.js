@@ -1,5 +1,5 @@
 //My Thanks go to the creator of http://sujeetsr.github.io/d3.slider/ 
-
+// need to do: annotation;% explaination 
 var dataset = []
     
 var margin = {top: 20, right: 30, bottom: 30, left: 60},
@@ -75,7 +75,7 @@ d3.csv('income.csv', function(data) {
         .attr('transform', 'rotate(-90)')
         .attr('y', -50)
         .style('text-anchor', 'end')
-        .text('Median Household Annual Income (USD)')
+        .text('Median Annual Household Income (USD)')
     
     // Create bars
         // Create bars
