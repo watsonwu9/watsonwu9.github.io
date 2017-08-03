@@ -35,6 +35,9 @@ var chart= d3.select('#chart')
     .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
+var legend = d3.select('#legend')
+                .text(119)
+                .attr('fill','white');
 
 
 d3.csv('income.csv', function(data) {
@@ -42,6 +45,7 @@ d3.csv('income.csv', function(data) {
     dataf = data.map(function(d){
         return {
             'state': d.state, 
+            'state_full':d.state_full,
             'income': parseFloat(d.income),
             'year': parseFloat(d.year)
             }
@@ -53,7 +57,7 @@ d3.csv('income.csv', function(data) {
     // Scale the domain of the data
     x.domain(dataset.map(function(d){ return d.state }))
     y.domain([4, d3.max(dataf, function(d){return d.income})])
-    //c.domain([4, d3.max(dataset, function(d){return d.income})])
+    
 
     // Create axes
     chart.append('g')
@@ -95,7 +99,7 @@ d3.csv('income.csv', function(data) {
         .attr("y", function(d) { return y(d.income); })
         .attr('x', function(d) {return  x(d.state);})
         .attr("height", function(d) { return height - y(d.income); })
-        .attr("width", x.rangeBand()-2 )
+        .attr("width", x.rangeBand() )
         
 
 
@@ -149,10 +153,12 @@ d3.csv('income.csv', function(data) {
         d3.select(this)
             .attr("fill","red");
 
+        var dollarFormatter =  d3.format("2.0f");
+
         tooltip.style('opacity',1)
-                .style('left',(d3.event.pageX)+"px")
-                .style('top',(d3.event.pageY)+"px")
-                .html('item #'+i+' is +d');
+                .style('left',(d3.event.pageX+20)+"px")
+                .style('top',(d3.event.pageY-30)+"px")
+                .html("in "+d.year+" , the Median Annual Household Income of "+d.state_full+' is '+d3.format("$,.0f")(d.income)+'.');
 
         })
 
@@ -169,6 +175,9 @@ d3.csv('income.csv', function(data) {
 
     function update(toYear){
         dataset = dataf.filter(function(el) {return parseFloat(el.year)==toYear});
+
+        chart.selectAll('.bar')
+            .data(dataset);
 
         chart.selectAll('.rect')
          .data(dataset)
@@ -211,11 +220,7 @@ d3.csv('income.csv', function(data) {
             : function(a,b){return d3.ascending(a.state, b.state)})
             .map(function(d) {return d.state}))
             .copy();
-        // var x0 = x.domain(dataset.sort(this.checked
-        //     ? function(a,b){return b.income - a.income}
-        //     : function(a,b){return d3.ascending(a.state, b.state)})
-        //     .map(function(d) {return d.state}))
-        //     .copy();
+   
 
         var transition = chart.transition().duration(750)
 
