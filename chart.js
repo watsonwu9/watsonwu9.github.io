@@ -35,9 +35,9 @@ var chart= d3.select('#chart')
     .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
-var legend = d3.select('#legend')
-                .text(119)
-                .attr('fill','white');
+// var legend = d3.select('#legend')
+//                 .text(19)
+//                 .style('color','white');
 
 
 d3.csv('income.csv', function(data) {

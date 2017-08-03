@@ -43,17 +43,23 @@
 }
 
 
-div #sort {
-    width: 80px;
+div #sortblock {
     position: relative;
     font-size: 40px;
-    height: 40px;
-    margin-left: 120px;
+    height: 140px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 20px;
 
+}
+
+div .sort {
+    float: right;
 }
 
 
 #chart {
+  margin-top: -100px;
   margin-right: 50px;
   padding-left: 50px;
   text-align: center;
@@ -72,12 +78,30 @@ div #sort {
   border-width: 1px;
 }
 
-#legend {
+div .legendbox{
+  float: left;
   font-size: 10px;
+  width: 280px;
+  height: 100px;
+  margin-left: 72px;
+}
+
+#legend {
+  float: left;
   width: 18px;
   height: 80px;
-  margin-right: 80px;
   background-color: #fd8d3c;
+  text-shadow:none;
+  color: white;
+
+}
+#legendEx{
+  float: left;
+  width: 260px;
+  height: 80px;
+  text-align: left;
+  border-style: solid;
+  border-width: 1px;
 
 }
 
@@ -122,11 +146,14 @@ div #sort {
 
  
   <div class ="container">
-      <div id = "sort">
-        <div>
-          <input type="button"  value="sort"/>
-          <div id='legend'></div>
-        </div>
+      <div id = "sortblock">
+            <div class = 'sort'>
+                <input type="button"  value="sort"/>
+            </div>
+            <div class = 'legendbox'>
+                <div id = 'legend'><p style='margin-top:0px'>119</p></div>
+                <div id ='legendEx'><p style='font-size:5px;margin-top:0px'>Note:the percentage in each bar(here 119%) represents ratio of the median household income in this state to that of USA in the same year.Here,the family in this state earns 119% as much as the American family on average.</p> </div>
+            </div>
       </div>
       <svg id="chart"/>
       <div id='tooltip'></div>
@@ -149,7 +176,7 @@ div #sort {
       <p>In this chart, the current year is the parameter. I also add animation between the transitions. Note a SORT button is also presented to make the comparison more clear.</p>
        <h3>Triggers</h3>
       <p>In Martini, triggers are the connections between parameters. One who drags the slider and make the parameters change will definitely notice the variety of triggers embedded in this chart.</p>
-  
+
 
 
     </div>
