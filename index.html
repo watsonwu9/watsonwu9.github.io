@@ -59,7 +59,7 @@ div .sort {
 
 
 #chart {
-  margin-top: -100px;
+  margin-top: -70px;
   margin-right: 50px;
   padding-left: 50px;
   text-align: center;
@@ -81,9 +81,11 @@ div .sort {
 div .legendbox{
   float: left;
   font-size: 10px;
-  width: 280px;
-  height: 100px;
+  width: 290px;
+  height: 82px;
   margin-left: 72px;
+  border-style: solid;
+  border-width: 1px;
 }
 
 #legend {
@@ -97,11 +99,9 @@ div .legendbox{
 }
 #legendEx{
   float: left;
-  width: 260px;
+  width: 270px;
   height: 80px;
   text-align: left;
-  border-style: solid;
-  border-width: 1px;
 
 }
 
@@ -127,18 +127,18 @@ div .legendbox{
 </style>
 
 
-  <h1 class="title">Income Median Gap Between States</h1>
+  <h1 class="title">Median Income Evolution Between US States</h1>
 
-  <p class = 'intro'>How does family income in different states change in the past 30 years?</p>
-  <p class = 'intro'>Each year, millions of immigrants from the world settle in the USA and start to pursue their American dream. given a vast country consisting of 50 states,those skillful immigrants  will ,perhap, make one of the most important choices in their life: pick up new home state.To some extent, choosing which state to live in is like buying a big share of stock of that state. One who lives in that state grow with the state. 
+  <h3 class = 'intro'>How does family income in different states change in the past 30 years?</h3>
+  <p class = 'intro'>After the unprecedented election in 2016, some argued that one of the underlying reasons why Mr. Donald Trump was elected is that <strong>the USA is becoming more and more divided, economically</strong>.While Some states have enjoyed very fast growth thanks to the globalization and technology expansion, some other states face severe economy problems and are losing American jobs to other countries.  
   </p>
 
-  <p class = 'intro'>In order to compare the average life improvement of household between states in the past years, the median household annual income from 1985 to 2015 were retrieved from <a href="http://www.census.gov">US Census Bureau</a>. 
-  To control for the inlfation and the natural growth, the overall national median household income is also presented. 
+  <p class = 'intro'>In order to compare the <strong>average monetary improvement </strong>of US families between states in the past years, the median household annual income from 1985 to 2015 were retrieved from <a href="http://www.census.gov">US Census Bureau</a>. This dataset has various merits. Firstly, household annual income, compared to other dataset like GDP per capita, will more reflect voter's personal well-being.  Also, the median is chosen because it will not be affected by extremes and is a better representative of average family's financial situation.<strong>To control for the inflation and the natural growth</strong>, the ratio,as a percentage, of the median household income in each state to that of USA in the same year is also presented on each bar.
   </p>
 
   <p class = 'intro'>
-  Interestingly,I found that the income of the residents in DC(sorry, this is not a state,literally) improves very fast. In 1985, family from the DC only earn 21,076 US dollars, or 89% of the national household income. However, in 2015, that number has arisen to 70071 US dollars, or 124% of the national household income. This means that the family in DC has beaten the average!
+  I found that the income of <strong>the residents in Ohio deteriorated comparatively</strong>. In 1985, family from the Ohio earns 25,174 US dollars, or 107% of the national household income. However, in 2015, that number has arisen to 53,301 US dollars, but only 94% of the national household income in 2015. This means that the family in Ohio has lost to the average! That may explain why Ohio voters are becoming more change-driven, with Trump won by a margin of 8.1 points in 2016 presidential election.
+
   </p>
   <p class = 'intro'>
   What conclusion may you draw? feel free to play with this visualization. 
@@ -152,7 +152,7 @@ div .legendbox{
             </div>
             <div class = 'legendbox'>
                 <div id = 'legend'><p style='margin-top:0px'>119</p></div>
-                <div id ='legendEx'><p style='font-size:5px;margin-top:0px'>Note:the percentage in each bar(here 119%) represents ratio of the median household income in this state to that of USA in the same year.Here,the family in this state earns 119% as much as the American family on average.</p> </div>
+                <div id ='legendEx'><p style='font-size:5px;margin-top:0px'>Note:the percentage in each bar(here 119%) represents the ratio of the median household income in this state to that of USA in the same year.Here,the family in this state earns 119% as much as the average American family.</p> </div>
             </div>
       </div>
       <svg id="chart"/>
@@ -163,19 +163,16 @@ div .legendbox{
 
   <div data-role="collapsible">
       <h1>Click me - Essay is here!</h1>
-      <p>It is not <strong>Martini</strong>!</p>
+      <p>I made this visualization as a <strong>Interactive Slideshow</strong>.</p>
       <h3>Scenes</h3>
-      <p>In Martini, every scene is like a slide in a presentation. Here, I used a slider to let users to navigate from the year of 1985 to the year of 2015. By dragging or clicking the related buttons, users can have an overall ideas about 
-      how median household income in each state changes.</p>
+      <p>In an interactive slideshow, every scene is like a slide in a presentation. Here, I used <strong>a slider</strong> to let users to navigate from the year of 1985 to the year of 2015. By dragging or clicking the related buttons, users can have an overall idea about how median household income in each state changes.</p>
       <h3>Annotations</h3>
-      <p>In Martini, Annotations are the messages the data scientists want to convey to the audiences.In this chart, I made two annotations.</p>
-      <p>Firstly, I designed a popup textbox to help andiences understand the exact amount of median household income in each state.</p>
-      <p>Then, in order to control for the inflation and make the comparison between different years valid,I divided the median household income in each state with the same-year US national median household income and got a percentage(and I timed the percentage with 100 as well). If that figure is 119(as in the legend), it means that the family in this state earns 1.19 times than average American family, in a median sense.</p>
-      <p>By adding these annotations, it is believed that audiences will have a better understanding of our quesition of statistics:How does family income in different states change in the past 30 years?</p>
+      <p>In an interactive slideshow, annotations are the messages the data scientists want to convey to the audiences. In this chart, I made two annotations. Firstly, I designed <strong>a popup textbox</strong> to help audiences understand the exact amount of median household income in each state. Then, in order to control for the inflation and national growth, and make the comparison between different years valid, I divided the median household income in each state with the same-year US national median household income and present <strong>the percentage in the bar</strong>(and I timed the percentage with 100 as well). If that figure is 119(as in the legend), it means that the family in this state earns 119% as much as the average American family, in a median sense. </p>
+      <p>By adding these annotations, it is believed that audiences will have a better understanding of our question of research: How does family income in different states change in the past 30 years?</p>
       <h3>Parameters</h3>
-      <p>In this chart, the current year is the parameter. I also add animation between the transitions. Note a SORT button is also presented to make the comparison more clear.</p>
+      <p>In this visualization, the current year is the parameter. I also add animations between the transitions. Note a <strong>SORT button</strong> is also presented to make the comparison clearer.</p>
        <h3>Triggers</h3>
-      <p>In Martini, triggers are the connections between parameters. One who drags the slider and make the parameters change will definitely notice the variety of triggers embedded in this chart.</p>
+      <p>Triggers are the connections between parameters. One who drags the slider and make the parameters change will definitely notice the variety of triggers embedded in this visualization.</p>
 
 
 
